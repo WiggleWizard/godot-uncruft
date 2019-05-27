@@ -1,6 +1,6 @@
 Uncruft
 =======
-Uncruft adds expressive macro/code generating capability to your GDSCripts so you don't have to hand write large amounts of code.
+Uncruft adds expressive macro/code generating capability to your GDScripts so you don't have to hand write large amounts of code.
 
 ![](showoff.gif)
 
