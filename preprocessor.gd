@@ -51,7 +51,6 @@ func expand_macro(macro: Macro):
 	clear_macro(macro);
 			
 	var expanded = macro.expand();
-	print(expanded);
 	_working_source.insert(macro.get_starting_line() + 1, expanded);
 	_working_source.insert(macro.get_starting_line() + 2, Macro.MACRO_END_SUFFIX + macro.command);
 	
