@@ -76,7 +76,6 @@ func parse_macro(macro_line: String) -> Macro:
 		if(macro_script == null):
 			var custom_macro_path = ProjectSettings.get_setting("uncruft/macros/custom_macro_path");
 			full_macro_path = custom_macro_path + "/" + command + ".gd";
-			print(full_macro_path);
 			
 			if(f.file_exists(full_macro_path)):
 				macro_script = load(full_macro_path);
@@ -86,7 +85,6 @@ func parse_macro(macro_line: String) -> Macro:
 			
 		# Instance the macro script
 		var macro = macro_script.new();
-		print(macro);
 			
 		macro.command = command;
 		if(has_args):
