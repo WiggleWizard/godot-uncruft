@@ -17,12 +17,19 @@ var end_line: int    = -1;
 
 func expand() -> String:
 	return "";
-	
-func template(s: String) -> String:
-	for key in args:
-		s = s.replace("%" + key + "%", args[key]);
-	return s;
 
+func format(s: String, extra_args: Dictionary={}) -> String:
+	var combined_args = get_format_args();
+	for key in extra_args:
+		combined_args[key] = extra_args[key];
+		
+	return s.format(combined_args).strip_edges();
+	
+func get_format_args() -> Dictionary:
+	var r = args.duplicate();
+	r['line'] = line;
+	return r;
+	
 func to_string():
 	var expanded_str = "Expanded" if expanded else "Not expanded";
 	return command + ": " + str(args) + " @ " + "L" + str(line) + " [" + expanded_str + "]";
