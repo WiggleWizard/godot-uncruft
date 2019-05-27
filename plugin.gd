@@ -12,6 +12,8 @@ enum MenuPopupIndices {
 
 
 func _enter_tree():
+	_configure_settings();
+
 	var editor_interface = get_editor_interface();
 	var script_editor    = editor_interface.get_script_editor();
 	
@@ -56,3 +58,24 @@ func _configure_menu():
 	popup.add_item("Expand macros in current script", MenuPopupIndices.PREPROCESS_CURRENT_SCRIPT);
 	popup.add_item("Clear expanded macres", MenuPopupIndices.CLEAR_CURRENT_SCRIPT);
 	popup.connect("id_pressed", self, "_on_item_pressed");
+
+func _configure_settings():
+	# Setup Uncruft settings in Project Config
+	_configure_setting("uncruft", "macros/custom_macro_path", TYPE_STRING, "res://macros", PROPERTY_HINT_DIR);
+	_configure_setting("uncruft", "expansion/tab_type", TYPE_INT, "Tabs,Spaces", PROPERTY_HINT_ENUM);
+	_configure_setting("uncruft", "expansion/tab_size", TYPE_INT, 4);
+
+func _configure_setting(section: String, key: String, type, default, hint=PROPERTY_HINT_NONE, hint_string=null):
+	var full_key_path = section + "/" + key;
+
+	if(!ProjectSettings.has_setting(full_key_path)):
+		ProjectSettings.set_setting(full_key_path, default);
+		
+	var property_info = {
+		"name": full_key_path,
+		"type": type,
+		"hint": hint,
+		"hint_string": default
+	}
+	ProjectSettings.add_property_info(property_info);
+	ProjectSettings.set_initial_value(full_key_path, default);
